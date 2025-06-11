@@ -16,6 +16,8 @@
 - [x] Update `tsconfig.json` with proper config (`rootDir`, `outDir`, `esModuleInterop`, etc.)
 - [x] Create `eslint.config.mjs` for ESLint configuration
 - [x] Create `prettier.config.mjs` for Prettier configuration
+- [x] Create `husky` for Git hooks
+- [x] Create `lint-staged` for staged files
 
 ## Create Source Files
 
@@ -36,3 +38,12 @@
 ## (Optional) Setup Project Structure
 
 - [x] Create envConfig.ts and validate environment variables
+
+## Setup server
+
+- [x] Create server.ts file
+- [x] Setup rate limiter
+- [x] Setup cors
+- [x] Setup helmet
+- [x] Setup body parser
+- [x] Setup trust proxy
