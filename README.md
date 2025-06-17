@@ -7,3 +7,7 @@
 ## ✅ Checklist dành cho Dev
 
 👉 [Checklist](./docs/setup-checklist.md)
+
+## 📚 References
+
+👉 [References](./docs/references.md)
