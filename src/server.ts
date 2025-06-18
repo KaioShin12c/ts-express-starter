@@ -3,7 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { rateLimiter } from './config/rate-limit';
-import { requestLogger } from './middleware/requestLogger';
+import requestLogger from './middleware/requestLogger';
+import errorHandler from './middleware/errorHandler';
 
 const app = express();
 
@@ -17,11 +18,20 @@ app.use(rateLimiter);
 app.use(cors());
 app.use(helmet());
 
-app.use(requestLogger());
+// Logger
+app.use(requestLogger);
 
 // Routes
 app.get('/', (req, res) => {
+  req.log.info('Hello World!');
   res.send('Hello World!');
 });
+
+app.get('/error', () => {
+  throw new Error('Oops');
+});
+
+// Error handlers
+app.use(errorHandler);
 
 export { app };
