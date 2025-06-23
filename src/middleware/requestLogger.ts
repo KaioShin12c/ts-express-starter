@@ -1,18 +1,9 @@
-import pinoHttp from 'pino-http';
 import type { NextFunction, Request, Response } from 'express';
 import { randomUUID } from 'crypto';
-import type { LevelWithSilent } from 'pino';
-
-import { config } from '../config/logger';
-import { env } from '../config/envConfig';
-import { logger } from '../config/logger';
 import { StatusCodes } from 'http-status-codes';
 
-const getLogLevel = (status: StatusCodes): LevelWithSilent => {
-  if (status >= StatusCodes.INTERNAL_SERVER_ERROR) return 'error';
-  if (status >= StatusCodes.BAD_REQUEST) return 'warn';
-  return 'info';
-};
+import logger from '../config/logger';
+import { env } from '../config/envConfig';
 
 const addRequestId = (req: Request, res: Response, next: NextFunction) => {
   const existingId = req.headers['x-request-id'] as string;
@@ -25,17 +16,37 @@ const addRequestId = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-const httpLogger = pinoHttp({
-  logger,
-  genReqId: (req) => req.headers['x-request-id'] as string,
-  customLogLevel: (req) => getLogLevel(req.statusCode as StatusCodes),
-  customSuccessMessage: (req) => `${req.method} ${req.url} completed`,
-  customErrorMessage: (_, res) => `Request failed with status code ${res.statusCode}`,
-  serializers: {
-    req: (req) => ({ method: req.method, url: req.url, id: req.id }),
-  },
-  ...config[env.NODE_ENV],
-});
+const httpLogger = (req: Request, res: Response, next: NextFunction) => {
+  const start = performance.now();
+
+  req.log = logger.child({ request_id: req.headers['x-request-id'] });
+
+  req.log.info(`incoming request ${req.method} ${req.url}`, {
+    method: req.method,
+    url: req.url,
+    ip: req.ip,
+    user_agent: req.headers['user-agent'],
+  });
+
+  res.on('finish', () => {
+    const { statusCode } = res;
+
+    const logData = {
+      duration_ms: performance.now() - start,
+      status_code: statusCode,
+    };
+
+    if (statusCode >= StatusCodes.INTERNAL_SERVER_ERROR) {
+      req.log.error(`server error ${req.method} ${req.url}`, logData);
+    } else if (statusCode >= StatusCodes.BAD_REQUEST) {
+      req.log.warn(`client error ${req.method} ${req.url}`, logData);
+    } else {
+      req.log.info(`request completed ${req.method} ${req.url}`, logData);
+    }
+  });
+
+  next();
+};
 
 const captureResponseBody = (req: Request, res: Response, next: NextFunction) => {
   if (!env.isProduction) {

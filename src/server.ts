@@ -3,8 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { rateLimiter } from './config/rate-limit';
-import requestLogger from './middleware/requestLogger';
 import errorHandler from './middleware/errorHandler';
+import requestLogger from './middleware/requestLogger';
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/error', () => {
-  throw new Error('Oops');
+  throw new Error('App crashed!');
 });
 
 // Error handlers

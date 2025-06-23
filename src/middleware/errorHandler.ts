@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 // Catch all unexpected requests
 const unexpectedRequest = (_req: Request, res: Response) => {
+  console.log('unexpectedRequest');
   res.status(StatusCodes.NOT_FOUND).send('Not Found');
 };
 
@@ -12,10 +13,12 @@ const addErrorToRequestLog: ErrorRequestHandler = (err, _req, res, next) => {
   next(err);
 };
 
-// Error handler
-const errorHandler: ErrorRequestHandler = (err, _req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   const status =
     res.statusCode >= StatusCodes.BAD_REQUEST ? res.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;
+
+  req.log.error(err);
 
   res.status(status).json({
     message: err.message || 'Internal Server Error',
