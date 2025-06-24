@@ -1,21 +1,23 @@
-import winston, { type Logger } from 'winston';
+import winston, { type Logger } from "winston";
 
-import { env } from '../envConfig';
-import { LoggerConfig } from './types';
-import { customizeFormat } from './utils';
+import { env } from "../envConfig";
+import type { LoggerConfig } from "./types";
+import { customizeFormat } from "./utils";
 
 export default (config?: LoggerConfig): Logger => {
-  return winston.createLogger({
-    levels: config?.levels ?? winston.config.syslog.levels,
-    level: env.LOG_LEVEL,
+	return winston.createLogger({
+		levels: config?.levels ?? winston.config.syslog.levels,
+		level: env.LOG_LEVEL,
 
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.label({ label: 'dev' }),
-      winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
-    ),
-    transports: [
-      new winston.transports.Console({ format: winston.format.combine(customizeFormat) }),
-    ],
-  });
+		format: winston.format.combine(
+			winston.format.colorize(),
+			winston.format.label({ label: "dev" }),
+			winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+		),
+		transports: [
+			new winston.transports.Console({
+				format: winston.format.combine(customizeFormat),
+			}),
+		],
+	});
 };
