@@ -2,9 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import { rateLimiter } from './config/rate-limit';
+import { rateLimiter } from './config/rateLimit';
 import errorHandler from './middleware/errorHandler';
 import requestLogger from './middleware/requestLogger';
+import { openAPIRouter } from './api-docs/openAPIRouter';
+import { userRouter } from './features/user/userRouter';
 
 const app = express();
 
@@ -30,6 +32,10 @@ app.get('/', (req, res) => {
 app.get('/error', () => {
   throw new Error('App crashed!');
 });
+
+app.use('/api', userRouter);
+
+app.use(openAPIRouter);
 
 // Error handlers
 app.use(errorHandler);
