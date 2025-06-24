@@ -10,7 +10,7 @@ import { LoggerConfig } from './types';
 import { customizeFormat } from './utils';
 
 // ensure log directory exists
-const LOG_DIR = resolve(__dirname, '..', 'logs');
+const LOG_DIR = resolve(process.cwd(), 'logs');
 if (!existsSync(LOG_DIR)) {
   mkdirSync(LOG_DIR, { recursive: true });
 }
