@@ -48,29 +48,11 @@ export class ServiceResponse<DataType = null> {
 		statusCode: StatusCodes = StatusCodes.OK,
 		metadata?: Metadata,
 	) {
-		return new ServiceResponse(
-			"success",
-			message,
-			data,
-			statusCode,
-			undefined,
-			metadata,
-		);
+		return new ServiceResponse("success", message, data, statusCode, undefined, metadata);
 	}
 
-	static failure(
-		message: string,
-		statusCode: StatusCodes = StatusCodes.BAD_REQUEST,
-		error: ResponseError,
-	) {
-		return new ServiceResponse(
-			"failure",
-			message,
-			null,
-			statusCode,
-			error,
-			undefined,
-		);
+	static failure(message: string, statusCode: StatusCodes = StatusCodes.BAD_REQUEST, error: ResponseError) {
+		return new ServiceResponse("failure", message, null, statusCode, error, undefined);
 	}
 }
 

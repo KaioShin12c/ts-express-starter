@@ -1,9 +1,9 @@
-import { Logger } from 'winston';
+import type { Logger } from "winston";
 
 declare global {
-  namespace Express {
-    interface Request {
-      log: Logger;
-    }
-  }
+	namespace Express {
+		interface Request {
+			log: Logger;
+		}
+	}
 }

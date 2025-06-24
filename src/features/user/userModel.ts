@@ -1,12 +1,9 @@
-import { z } from 'zod';
-import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
-
-extendZodWithOpenApi(z);
+import z from "../../config/zod";
 
 export const UserSchema = z
-  .object({
-    id: z.string().openapi({ example: '1212121' }),
-    name: z.string().openapi({ example: 'John Doe' }),
-    age: z.number().openapi({ example: 42 }),
-  })
-  .openapi('User');
+	.object({
+		id: z.string().openapi({ example: "1212121" }),
+		name: z.string().openapi({ example: "John Doe" }),
+		age: z.number().openapi({ example: 42 }),
+	})
+	.openapi("User");

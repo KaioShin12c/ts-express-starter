@@ -1,7 +1,7 @@
-import winston, { type Logger } from "winston";
+import { existsSync, mkdirSync } from "node:fs";
 import os from "node:os";
 import { resolve } from "node:path";
-import { mkdirSync, existsSync } from "node:fs";
+import winston, { type Logger } from "winston";
 
 import "winston-daily-rotate-file";
 
