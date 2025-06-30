@@ -1,8 +1,9 @@
 import { randomUUID } from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { env } from "../config/envConfig";
-import logger from "../config/logger";
+
+import { env } from "@/config/envConfig";
+import logger from "@/config/logger";
 
 const addRequestId = (req: Request, res: Response, next: NextFunction) => {
   const existingId = req.headers["x-request-id"] as string;

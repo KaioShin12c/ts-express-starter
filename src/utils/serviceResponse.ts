@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import z from "../config/zod";
+
+import z from "@/config/zod";
 
 const ResponseStatusEnum = z.enum(["success", "error"]);
 

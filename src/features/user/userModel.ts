@@ -1,4 +1,4 @@
-import z from "../../config/zod";
+import z from "@/config/zod";
 
 export const UserSchema = z
   .object({

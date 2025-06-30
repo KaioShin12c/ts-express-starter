@@ -1,7 +1,8 @@
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
-import { ServiceResponseSchema } from "../../utils/serviceResponse";
+
+import { ServiceResponseSchema } from "@/utils/serviceResponse";
 import { UserSchema } from "./userModel";
 
 export const userRegistry = new OpenAPIRegistry();
