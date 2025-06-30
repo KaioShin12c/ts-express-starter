@@ -26,12 +26,12 @@ app.use(requestLogger);
 
 // Routes
 app.get("/", (req, res) => {
-	req.log.info("Hello World!");
-	res.send("Hello World!");
+  req.log.info("Hello World!");
+  res.send("Hello World!");
 });
 
 app.get("/error", () => {
-	throw new Error("App crashed!");
+  throw new Error("App crashed!");
 });
 
 app.use("/api", userRouter);

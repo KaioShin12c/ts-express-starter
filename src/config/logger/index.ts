@@ -8,10 +8,10 @@ import prodLogger from "./logger.prod";
 let logger: winston.Logger | null = null;
 
 if (env.NODE_ENV === "production") {
-	logger = prodLogger({ levels: logLevels });
+  logger = prodLogger({ levels: logLevels });
 }
 if (env.NODE_ENV === "development") {
-	logger = devLogger({ levels: logLevels });
+  logger = devLogger({ levels: logLevels });
 }
 
 export default logger as winston.Logger;

@@ -13,16 +13,18 @@
     "dev": "node --import=tsx --watch src/index.ts",
     "start": "NODE_ENV=production node dist/index.js",
     "build": "tsc && tsup",
-    "format": "biome format --write",
-    "lint": "biome lint --write",
-    "lint:fix": "biome lint --fix",
+    "format": "prettier --write .",
+    "check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "biome format --write",
-      "biome lint --fix"
-    ]
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{json,md}": "prettier --write"
   },
   "keywords": [
     "expressjs",
@@ -38,6 +40,8 @@
     "@asteasolutions/zod-to-openapi": "^7.3.4",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
@@ -49,17 +53,21 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.5",
+    "@eslint/js": "^9.30.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/lodash": "^4.17.18",
     "@types/node": "^24.0.0",
     "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.30.0",
+    "globals": "^16.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
+    "prettier": "3.6.2",
     "tsup": "^8.5.0",
     "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.0"
   },
   "tsup": {
     "entry": [
