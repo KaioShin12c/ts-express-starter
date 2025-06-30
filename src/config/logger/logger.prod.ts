@@ -5,7 +5,7 @@ import winston, { type Logger } from "winston";
 
 import "winston-daily-rotate-file";
 
-import { env } from "../envConfig";
+import { env } from "@/config/envConfig";
 import type { LoggerConfig } from "./types";
 import { customizeFormat } from "./utils";
 
@@ -52,7 +52,7 @@ export default (config?: LoggerConfig): Logger => {
       winston.format.label({ label: "prod" }),
       winston.format.errors({ stack: true }),
       winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-      winston.format.json(),
+      winston.format.json()
     ),
     transports: [transportError, transportConbine, transportConsole],
   });

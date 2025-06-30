@@ -28,7 +28,7 @@ export class ServiceResponse<DataType = null> {
     data: DataType,
     statusCode: StatusCodes,
     error?: ResponseError,
-    metadata?: Metadata,
+    metadata?: Metadata
   ) {
     this.status = status;
     this.message = message;
@@ -47,7 +47,7 @@ export class ServiceResponse<DataType = null> {
     message: string,
     data: DataType,
     statusCode: StatusCodes = StatusCodes.OK,
-    metadata?: Metadata,
+    metadata?: Metadata
   ) {
     return new ServiceResponse("success", message, data, statusCode, undefined, metadata);
   }

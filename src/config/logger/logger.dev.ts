@@ -1,6 +1,6 @@
 import winston, { type Logger } from "winston";
 
-import { env } from "../envConfig";
+import { env } from "@/config/envConfig";
 import type { LoggerConfig } from "./types";
 import { customizeFormat } from "./utils";
 
@@ -12,7 +12,7 @@ export default (config?: LoggerConfig): Logger => {
     format: winston.format.combine(
       winston.format.colorize(),
       winston.format.label({ label: "dev" }),
-      winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+      winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" })
     ),
     transports: [
       new winston.transports.Console({

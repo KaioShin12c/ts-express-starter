@@ -1,6 +1,6 @@
 import type winston from "winston";
 
-import { env } from "../envConfig";
+import { env } from "@/config/envConfig";
 import { logLevels } from "./constants";
 import devLogger from "./logger.dev";
 import prodLogger from "./logger.prod";

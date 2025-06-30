@@ -13,7 +13,6 @@ const addErrorToRequestLog: ErrorRequestHandler = (err, _req, res, next) => {
   next(err);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   const status = res.statusCode >= StatusCodes.BAD_REQUEST ? res.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;
 
