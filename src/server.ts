@@ -26,8 +26,8 @@ app.use(requestLogger);
 
 // Routes
 app.get("/", (req, res) => {
-  req.log.info("Hello World!");
-  res.send("Hello World!");
+  req.log.info("Hello World !");
+  res.send("Hello World !");
 });
 
 app.get("/error", () => {
